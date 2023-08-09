@@ -14,6 +14,7 @@ const Example2 = () => {
         error
     } = useInfiniteQuery('/posts', ({ pageParam = 1 }) => getPostsPage(pageParam), {
         getNextPageParam: (lastPage, allPages) => {
+            console.log('Call comes here for the very first time')
             return lastPage.length ? allPages.length + 1 : undefined
         }
     })
@@ -38,6 +39,7 @@ const Example2 = () => {
 
     const content = data?.pages.map(pg => {
         return pg.map((post, i) => {
+            console.log('Content call comes here now')
             if (pg.length === i + 1) {
                 return <Post ref={lastPostRef} key={post.id} post={post} />
             }
